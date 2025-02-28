@@ -1,0 +1,57 @@
+# Python Backend
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+BackEnd/venv/
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node.js Frontend
+ml-webpage/node_modules/
+ml-webpage/.next/
+ml-webpage/out/
+ml-webpage/.DS_Store
+ml-webpage/.env.local
+ml-webpage/.env.development.local
+ml-webpage/.env.test.local
+ml-webpage/.env.production.local
+ml-webpage/npm-debug.log*
+ml-webpage/yarn-debug.log*
+ml-webpage/yarn-error.log*
+ml-webpage/.pnpm-debug.log*
+ml-webpage/.vercel
+ml-webpage/.env
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS specific files
+.DS_Store
+Thumbs.db 
