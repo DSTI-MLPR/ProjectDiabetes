@@ -5,14 +5,70 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 const inputs = [
-  { id: "pregnancies", name: "Number of times pregnant", type: "number" },
-  { id: "plasmaGlucose", name: "Plasma glucose concentration (2-hour oral glucose tolerance test)", type: "number" },
-  { id: "diastolicBP", name: "Diastolic blood pressure (mm Hg)", type: "number" },
-  { id: "tricepsThickness", name: "Triceps skin fold thickness (mm)", type: "number" },
-  { id: "serumInsulin", name: "2-Hour serum insulin (mu U/ml)", type: "number" },
-  { id: "bmi", name: "Body mass index (kg/m²)", type: "number" },
-  { id: "diabetesPedigree", name: "Diabetes pedigree function", type: "number" },
-  { id: "age", name: "Age (years)", type: "number" },
+  { 
+    id: "pregnancies", 
+    name: "Number of times pregnant", 
+    type: "number",
+    min: 0,
+    max: 15,
+    step: 1
+  },
+  { 
+    id: "plasmaGlucose", 
+    name: "Plasma glucose concentration (2-hour oral glucose tolerance test)", 
+    type: "number",
+    min: 40,
+    max: 600,
+    step: 1
+  },
+  { 
+    id: "diastolicBP", 
+    name: "Diastolic blood pressure (mm Hg)", 
+    type: "number",
+    min: 20,
+    max: 120,
+    step: 1
+  },
+  { 
+    id: "tricepsThickness", 
+    name: "Triceps skin fold thickness (mm)", 
+    type: "number",
+    min: 5,
+    max: 100,
+    step: 1
+  },
+  { 
+    id: "serumInsulin", 
+    name: "2-Hour serum insulin (mu U/ml)", 
+    type: "number",
+    min: 10,
+    max: 700,
+    step: 1
+  },
+  { 
+    id: "bmi", 
+    name: "Body mass index (kg/m²)", 
+    type: "number",
+    min: 15,
+    max: 80,
+    step: 0.1
+  },
+  { 
+    id: "diabetesPedigree", 
+    name: "Diabetes pedigree function", 
+    type: "number",
+    min: 0,
+    max: 2,
+    step: 0.001
+  },
+  { 
+    id: "age", 
+    name: "Age (years)", 
+    type: "number",
+    min: 20,
+    max: 80,
+    step: 1
+  },
 ]
 
 export default function Home() {
@@ -30,11 +86,30 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
 
   const handleInputChange = (id, value) => {
-    // First update the state with the original ID
+    // Validate the input value against min/max constraints
+    const input = inputs.find(input => input.id === id);
+    const numValue = parseFloat(value);
+    
+    if (value === '') {
+      setInputValues(prev => ({
+        ...prev,
+        [id]: value
+      }));
+      return;
+    }
+
+    if (!isNaN(numValue)) {
+      if (numValue < input.min) {
+        value = input.min;
+      } else if (numValue > input.max) {
+        value = input.max;
+      }
+    }
+
     setInputValues(prev => ({
       ...prev,
       [id]: value
-    }))
+    }));
   }
 
   const handleSubmit = async (e) => {
@@ -115,9 +190,14 @@ export default function Home() {
                     value={inputValues[input.id] || ""}
                     onChange={(e) => handleInputChange(input.id, e.target.value)}
                     required
-                    min="0"
-                    step="any"
+                    min={input.min}
+                    max={input.max}
+                    step={input.step}
+                    className="w-full"
                   />
+                  <p className="text-sm text-gray-500">
+                    Range: {input.min} to {input.max} {input.step < 1 ? `(step: ${input.step})` : ''}
+                  </p>
                 </div>
               ))}
             </div>
