@@ -33,7 +33,7 @@ cd ml-webpage
 REM Install frontend dependencies if node_modules doesn't exist
 if not exist "node_modules" (
     echo Installing frontend dependencies...
-    npm install
+    npm install --legacy-peer-deps
 )
 
 REM Start the frontend development server
